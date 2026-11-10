@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#245c38">
+<title>Hen Care</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f8f2;
+  color: #263b2c;
+}
+header {
+  background: #245c38;
+  color: white;
+  padding: 24px 18px;
+  border-radius: 0 0 22px 22px;
+}
+header h1 { margin: 0; font-size: 28px; }
+header p { margin-bottom: 0; }
+main { padding: 16px; }
+h2 { color: #245c38; }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.card {
+  background: white;
+  padding: 18px 12px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px #00000010;
+  text-align: center;
+}
+.card span { font-size: 30px; }
+.card h3 { font-size: 15px; }
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 15px;
+  background: #287344;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 7px 0;
+  border: 1px solid #ccc;
+  border-radius: 9px;
+  font-size: 15px;
+}
+.section { display: none; }
+.section.active { display: block; }
+.listing {
+  background: white;
+  padding: 14px;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+nav {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 2px;
+  box-shadow: 0 -2px 8px #00000012;
+}
+nav button {
+  background: transparent;
+  color: #245c38;
+  padding: 7px 5px;
+  font-size: 12px;
+}
+.small { color: #68766b; font-size: 13px; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🐔 Hen Care</h1>
+  <p>Your complete poultry world</p>
+</header>
+
+<main>
+
+<section id="home" class="section active">
+  <h2>Welcome to Hen Care!</h2>
+  <p>Buy, sell, manage and learn about chickens.</p>
+
+  <div class="grid">
+    <div class="card" onclick="show('market')">
+      <span>🛒</span><h3>Buy Chickens</h3>
+    </div>
+    <div class="card" onclick="show('sell')">
+      <span>🐓</span><h3>Sell Chickens</h3>
+    </div>
+    <div class="card" onclick="show('farm')">
+      <span>🏡</span><h3>My Farm</h3>
+    </div>
+    <div class="card" onclick="show('eggs')">
+      <span>🥚</span><h3>Egg Counter</h3>
+    </div>
+    <div class="card" onclick="show('health')">
+      <span>❤️</span><h3>Chicken Health</h3>
+    </div>
+    <div class="card" onclick="show('learn')">
+      <span>📚</span><h3>Learn About Hens</h3>
+    </div>
+  </div>
+</section>
+
+<section id="market" class="section">
+  <h2>Chicken Marketplace 🐓</h2>
+  <p class="small">Find chickens listed for sale.</p>
+  <div id="marketList"></div>
+</section>
+
+<section id="sell" class="section">
+  <h2>Sell Your Chicken</h2>
+  <form id="sellForm">
+    <input id="breed" placeholder="Chicken breed" required>
+    <input id="age" placeholder="Age (e.g. 6 months)" required>
+    <input id="price" type="number" min="1" placeholder="Price in ₹" required>
+    <input id="location" placeholder="Your location" required>
+    <button type="submit">Add Listing</button>
+  </form>
+  <p class="small">Demo listings are saved on this device only.</p>
+</section>
+
+<section id="farm" class="section">
+  <h2>My Farm 🏡</h2>
+  <p>Manage your poultry records here.</p>
+  <h3>Total chicken listings: <span id="total">0</span></h3>
+</section>
+
+<section id="eggs" class="section">
+  <h2>Egg Counter 🥚</h2>
+  <p>Record the eggs collected today.</p>
+  <h1 id="eggCount">0</h1>
+  <button onclick="changeEgg(1)">+ Add Eggs</button>
+  <button onclick="changeEgg(-1)">- Remove Eggs</button>
+  <p class="small">Your count is saved on this device.</p>
+</section>
+
+<section id="health" class="section">
+  <h2>Chicken Health ❤️</h2>
+  <p>Learn about keeping your chickens healthy.</p>
+  <div class="listing">
+    <h3>Daily health checks</h3>
+    <p>• Check eating and drinking.</p>
+    <p>• Observe activity and behaviour.</p>
+    <p>• Check feathers and eyes.</p>
+    <p>• Keep the coop clean and dry.</p>
+  </div>
+  <p>For illness or medicine advice, consult a poultry veterinarian.</p>
+</section>
+
+<section id="learn" class="section">
+  <h2>Poultry Learning 📚</h2>
+  <div class="listing">
+    <h3>Chicken breeds</h3>
+    <p>Learn about Asil, Vanaraja, Kadaknath and other breeds.</p>
+  </div>
+  <div class="listing">
+    <h3>Egg production</h3>
+    <p>Learn how hens form and lay eggs.</p>
+  </div>
+  <div class="listing">
+    <h3>Chick care</h3>
+    <p>Learn about feeding, warmth and hygiene.</p>
+  </div>
+</section>
+
+</main>
+
+<nav>
+  <button onclick="show('home')">🏠<br>Home</button>
+  <button onclick="show('market')">🛒<br>Market</button>
+  <button onclick="show('farm')">🏡<br>Farm</button>
+  <button onclick="show('eggs')">🥚<br>Eggs</button>
+  <button onclick="show('health')">❤️<br>Health</button>
+</nav>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => {
+    s.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+let listings = JSON.parse(localStorage.getItem('henListings') || '[]');
+let eggs = Number(localStorage.getItem('henEggs') || 0);
+
+function update() {
+  document.getElementById('eggCount').textContent = eggs;
+  document.getElementById('total').textContent = listings.length;
+
+  document.getElementById('marketList').innerHTML =
+    listings.length ? listings.map(item => `
+      <div class="listing">
+        <h3>🐔 ${item.breed}</h3>
+        <p>Age: ${item.age}</p>
+        <p>Price: ₹${item.price}</p>
+        <p>Location: ${item.location}</p>
+      </div>
+    `).join('') : '<p>No chickens listed yet.</p>';
+}
+
+function changeEgg(amount) {
+  eggs = Math.max(0, eggs + amount);
+  localStorage.setItem('henEggs', eggs);
+  update();
+}
+
+document.getElementById('sellForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  listings.push({
+    breed: document.getElementById('breed').value,
+    age: document.getElementById('age').value,
+    price: document.getElementById('price').value,
+    location: document.getElementById('location').value
+  });
+
+  localStorage.setItem('henListings', JSON.stringify(listings));
+  this.reset();
+  update();
+  show('market');
+  alert('Your demo listing was added!');
+});
+
+update();
+</script>
+
+</body>
+</html>
